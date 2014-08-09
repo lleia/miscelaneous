@@ -4,7 +4,7 @@
 # A simple gibbs sampler for the change point problem.
 #    http://www.bcs.rochester.edu/people/robbie/jacobslab/cheat_sheet/GibbsSampling.pdf
 # I've also writen a technical note:
-#    https://github.com/lleia/tech.notes/blob/master/simple_gibbs_sampling/project.pdf    
+#    https://github.com/lleia/tech.notes/blob/master/simple_gibbs_sampling/gibbs.pdf    
 #
 
 # parameters
