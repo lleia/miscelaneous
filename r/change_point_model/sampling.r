@@ -1,15 +1,22 @@
+# 
+# llei@qq.com
+# 2014-8-15
+# A simple gibbs sampler for the change point problem.
+#    http://www.bcs.rochester.edu/people/robbie/jacobslab/cheat_sheet/GibbsSampling.pdf
+# I've also writen a technical note:
+#    https://github.com/lleia/tech.notes/blob/master/simple_gibbs_sampling/project.pdf    
+#
+
+# parameters
 # length of sequence
 N <- 100
-# parameters
 n <- 60
-lm1 <- 10
-lm2 <- 15
+lm1 <- 20
+lm2 <- 60
 
 # samples 
-pl <- rbinom(n,20,0.5)
-pr <- rbinom(N-n,60,0.5)
-#pl <- rep(5,60)
-#pr <- rep(12,40)
+pl <- rbinom(n,lm1,0.5)
+pr <- rbinom(N-n,lm2,0.5)
 pa <- c(pl,pr)
 
 ITERS <- 10000
@@ -18,9 +25,11 @@ en <- 50
 elm1 <- 50
 elm2 <- 70 
 
-# sampling results
+# all sampling n 
 en_list <- rep(0,ITERS)
+# all sampling lambda 1
 elm1_list <- rep(0.0,ITERS)
+# all sampling lambda 2
 elm2_list <- rep(0.0,ITERS)
 
 # multinomials to sample n
@@ -37,8 +46,9 @@ for (id in 1:ITERS) {
 	tslm2 <- tslm2 * log(elm2)
 
 	for (mid in 1:N) {
-		tmp <- tslm1 + tslm2 - mid*elm1 - (N-mid)*elm2
+		#simply approximating formula, not sure
 		#mult_prob[mid] <- exp(tslm1 + tslm2 - en*elm1 - (N-en)*elm2)
+		tmp <- tslm1 + tslm2 - mid*elm1 - (N-mid)*elm2
 		mult_prob[mid] <- 1 + tmp^4 + tmp^8 + tmp^16 + tmp^32;
 		if (mid > 1 && mid < N) {
 			tslm1 <- tslm1 + pa[mid+1]*log(elm1)
