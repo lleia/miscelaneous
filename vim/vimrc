@@ -1,0 +1,91 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'powerline/powerline'
+
+Plugin 'szw/vim-tags'
+
+Plugin 'kien/ctrlp.vim'
+
+Plugin 'lervag/vimtex'
+
+Plugin 'mileszs/ack.vim'
+
+Plugin 'davidhalter/jedi-vim'
+
+Plugin 'tomasr/molokai'
+
+Plugin 'octol/vim-cpp-enhanced-highlight'
+
+Plugin 'Rip-Rip/clang_complete'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+set nu
+set ruler
+set colorcolumn=80
+
+if ! has("gui_running")
+  set t_Co=256
+endif
+colorscheme molokai
+
+syntax on
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,gbk,gb18030,ucs-bom
+
+set hlsearch
+set incsearch
+
+let g:tex_flavor='latex'
+
+if $TMUX == ''
+    set clipboard=unnamed
+endif
+
+set backspace=indent,eol,start
+
+""
+"" vimtex
+""
+
+let &rtp  = '~/.vim/bundle/vimtex,' . &rtp
+let &rtp .= ',~/.vim/bundle/vimtex/after'
+
+let g:vimtex_latexmk_continuous = 1
+let g:vimtex_latexmk_background = 1
+let g:vimtex_latexmk_options ='-pdflatex="xelatex --shell-escape -synctex=1 -src-specials -interaction=nonstopmode -f $*" -pdf -verbose -file-line-error'
+
+let g:vimtex_view_general_viewer = 'open'
+let g:vimtex_view_general_options = '@line @pdf @tex'
+
+
+set tags=tags
+set tags+=./tags 
+
+set completeopt-=preview
+let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
+if isdirectory(s:clang_library_path)
+      let g:clang_library_path=s:clang_library_path
+endif
